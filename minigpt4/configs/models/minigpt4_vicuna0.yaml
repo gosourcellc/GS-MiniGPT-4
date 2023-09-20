@@ -15,7 +15,7 @@ model:
   # generation configs
   prompt: ""
 
-  llama_model: "/workspace/vicuna"
+  llama_model: "wangrongsheng/MiniGPT-4-LLaMA"
 
 preprocess:
     vis_processor:
