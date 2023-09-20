@@ -15,7 +15,7 @@ model:
   # generation configs
   prompt: ""
 
-  llama_model: "wangrongsheng/MiniGPT-4-LLaMA"
+  llama_model: "vicuna/weight"
 
 preprocess:
     vis_processor:
