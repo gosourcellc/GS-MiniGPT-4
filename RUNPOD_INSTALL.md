@@ -49,13 +49,13 @@ cat ~/.ssh/id_rsa.pub
 
 ## Prepare the LLM weights
 
-### Clone pre-trained model
+### Clone pre-trained model (Option #1)
 ```bash
 git clone git@hf.co:Vision-CAIR/vicuna
 ```
 configure the path at `minigpt4/configs/models/minigpt4_vicuna0.yaml#L18`
 
-### Prepare weights from Llama and Vicuna delta
+### Prepare weights from Llama and Vicuna delta  (Option #2)
 
 See details [here](./PrepareVicuna.md)
 
