@@ -107,7 +107,8 @@ update conda environment
 conda env update -f environment.yml
 ````
 
-## Run demo in background
+## Run demo
 ```bash
-python demo.py --cfg-path eval_configs/minigpt4_eval.yaml --gpu-id 0 > demo.log &
+conda activate minigpt4
+python demo.py --cfg-path eval_configs/minigpt4_eval.yaml --gpu-id 0
 ```
