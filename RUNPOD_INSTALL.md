@@ -101,3 +101,13 @@ show gpu details
 ```bash
 nvidia-smi
 ```
+
+update conda environment
+```bash
+conda env update -f environment.yml
+````
+
+## Run demo in background
+```bash
+python demo.py --cfg-path eval_configs/minigpt4_eval.yaml --gpu-id 0 > demo.log &
+```
