@@ -95,3 +95,9 @@ Download the pretrained checkpoints
 gdown 1a4zLvaiDBr-36pasffmgpvH5P7CKmpze # Vicuna 13B
 ```
 configure the path at `eval_configs/minigpt4_eval.yaml#L10`
+
+## Useful commands
+show gpu details
+```bash
+nvidia-smi
+```
