@@ -112,3 +112,8 @@ conda env update -f environment.yml
 conda activate minigpt4
 python demo.py --cfg-path eval_configs/minigpt4_eval.yaml --gpu-id 0
 ```
+
+## Run API
+```bash
+python fast_api/main.py
+```
