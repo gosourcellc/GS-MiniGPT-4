@@ -47,7 +47,7 @@ def root():
 
 
 @app.post("/describe")
-async def root(
+async def describe(
     prompt: Annotated[str, Form(title="User prompt", min_length=10, max_length=3000)],
     file: Annotated[UploadFile, File(...)],
     temperature: Annotated[float, Path(title="Temperature", gt=0, le=2)] = 1,
