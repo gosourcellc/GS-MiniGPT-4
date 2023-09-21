@@ -1,3 +1,4 @@
+from PIL import Image
 from minigpt4 import MiniGPT4
 from minigpt4.common.registry import registry
 from minigpt4.common.config import Config
@@ -70,7 +71,9 @@ class MiniGPT:
 
         chat_state = self.CONV_VISION.copy()
         img_list = []
-        _llm_message = self.chat.upload_img(image, chat_state, img_list)
+        with Image.open(image) as im:
+            _llm_message = self.chat.upload_img(im, chat_state, img_list)
+
         self.chat.ask(prompt, chat_state)
 
         return self.chat.answer(
