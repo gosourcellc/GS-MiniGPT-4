@@ -61,7 +61,7 @@ class MiniGPT:
     ):
         if not self.is_initialized:
             raise MiniGPTException("Chat is not initialized")
-        if not isinstance(image, UploadFile):
+        if not image:
             raise MiniGPTException(
                 f"Image is not an UploadFile, current type is: {type(image)}"
             )
