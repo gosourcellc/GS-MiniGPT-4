@@ -1,0 +1,2 @@
+class MiniGPTException(Exception):
+    pass

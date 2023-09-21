@@ -1,18 +1,18 @@
 import uvicorn
+import requests
 from fastapi import (
     FastAPI,
-    File,
     Depends,
     Path,
-    UploadFile,
-    Form,
     HTTPException,
     status,
     Request,
 )
 from typing import Annotated, Optional
-from fast_api.llm.minigtp import MiniGPT
 
+from fast_api.llm.minigtp import MiniGPT
+from fast_api.request_models import ImageDetailsRequest
+from fast_api.utils import response_to_temp_file
 
 SECRET_TOKEN = "mysecrettoken123"
 
@@ -48,17 +48,14 @@ def root():
 
 @app.post("/describe", dependencies=[Depends(get_current_token)])
 async def describe(
-    prompt: Annotated[str, Form(title="User prompt", min_length=10, max_length=3000)],
-    file: Annotated[UploadFile, File(...)],
+    item: ImageDetailsRequest,
     temperature: Annotated[float, Path(title="Temperature", gt=0, le=2)] = 1,
     beam_count: Annotated[int, Path(title="Beam search numbers", ge=1, le=10)] = 1,
 ):
-    if not file.filename:
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST, detail="No file provided"
-        )
-    llm_message = model.prompt_image(prompt, file, temperature, beam_count)
-    return {"answer": llm_message}
+    response = requests.get(item.image_url, stream=True)
+    with response_to_temp_file(response) as tmp_file:
+        llm_message = model.prompt_image(item.prompt, tmp_file, temperature, beam_count)
+        return {"answer": llm_message}
 
 
 if __name__ == "__main__":

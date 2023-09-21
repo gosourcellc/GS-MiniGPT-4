@@ -1,4 +1,6 @@
 from PIL import Image
+from fast_api.exceptions import MiniGPTException
+from tempfile import NamedTemporaryFile
 from minigpt4 import MiniGPT4
 from minigpt4.common.registry import registry
 from minigpt4.common.config import Config
@@ -7,16 +9,12 @@ from minigpt4.conversation.conversation import (
     CONV_VISION_Vicuna0,
     CONV_VISION_LLama2,
 )
-from fastapi import UploadFile
 from argparse import Namespace
 from typing import Optional
 
+
 DEFAULT_CONFIG_PATH = "eval_configs/minigpt4_eval.yaml"
 DEFAULT_GPU_ID = 0
-
-
-class MiniGPTException(Exception):
-    pass
 
 
 class MiniGPT:
@@ -58,20 +56,22 @@ class MiniGPT:
         self.is_initialized = True
 
     def prompt_image(
-        self, prompt: str, image: UploadFile, temperature: float, num_beams: int
+        self,
+        prompt: str,
+        image_file: NamedTemporaryFile,
+        temperature: float,
+        num_beams: int,
     ):
         if not self.is_initialized:
             raise MiniGPTException("Chat is not initialized")
-        if not image:
-            raise MiniGPTException(
-                f"Image is not an UploadFile, current type is: {type(image)}"
-            )
-        if prompt is None:
-            raise MiniGPTException("Prompt is None")
+        if not image_file:
+            raise MiniGPTException("Image file is required")
+        if not prompt:
+            raise MiniGPTException("Prompt is required")
 
         chat_state = self.CONV_VISION.copy()
         img_list = []
-        with Image.open(image.file) as im:
+        with Image.open(image_file) as im:
             _llm_message = self.chat.upload_img(im, chat_state, img_list)
 
         self.chat.ask(prompt, chat_state)
