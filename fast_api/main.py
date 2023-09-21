@@ -11,7 +11,7 @@ from fastapi import (
 )
 from typing import Annotated, Optional
 
-from fast_api.llm.minigtp import MiniGPT
+from .minigtp import MiniGPT
 
 
 SECRET_TOKEN = "mysecrettoken123"
