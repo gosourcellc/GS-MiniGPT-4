@@ -1,6 +1,7 @@
 import uvicorn
 from fastapi import (
     FastAPI,
+    File,
     Depends,
     Path,
     UploadFile,
@@ -49,7 +50,7 @@ def root():
 @app.post("/describe")
 async def root(
     prompt: Annotated[str, Form(title="User prompt", min_length=10, max_length=3000)],
-    file: UploadFile,
+    file: Annotated[UploadFile, File()],
     temperature: Annotated[float, Path(title="Temperature", gt=0, le=2)] = 1,
     beam_count: Annotated[int, Path(title="Beam search numbers", ge=1, le=10)] = 1,
     _current_token: str = Depends(get_current_token),
@@ -59,4 +60,4 @@ async def root(
 
 
 if __name__ == "__main__":
-    uvicorn.run(app, host="127.0.0.1", port=8000, reload=True)
+    uvicorn.run("main:app", host="127.0.0.1", port=8000, reload=True)
