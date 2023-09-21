@@ -34,7 +34,7 @@ class MiniGPT:
         cfg_path: Optional[str] = DEFAULT_CONFIG_PATH,
         gpu_id: Optional[int] = DEFAULT_GPU_ID,
         options: Optional[list] = None,
-        **kwargs
+        **kwargs,
     ) -> Namespace:
         return Namespace(cfg_path=cfg_path, gpu_id=gpu_id, options=options, **kwargs)
 
@@ -62,7 +62,9 @@ class MiniGPT:
         if not self.is_initialized:
             raise MiniGPTException("Chat is not initialized")
         if not isinstance(image, UploadFile):
-            raise MiniGPTException("Image is not an UploadFile")
+            raise MiniGPTException(
+                f"Image is not an UploadFile, current type is: {type(image)}"
+            )
         if prompt is None:
             raise MiniGPTException("Prompt is None")
 
