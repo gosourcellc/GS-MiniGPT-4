@@ -61,6 +61,7 @@ class MiniGPT:
         image_file: NamedTemporaryFile,
         temperature: float,
         num_beams: int,
+        max_new_tokens: int = 1000,
     ):
         if not self.is_initialized:
             raise MiniGPTException("Chat is not initialized")
@@ -80,7 +81,7 @@ class MiniGPT:
         return self.chat.answer(
             conv=chat_state,
             img_list=img_list,
-            max_new_tokens=1000,
+            max_new_tokens=max_new_tokens,
             num_beams=num_beams,
             temperature=temperature,
         )[0]

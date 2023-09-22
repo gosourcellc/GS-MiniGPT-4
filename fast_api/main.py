@@ -18,7 +18,7 @@ SECRET_TOKEN = "mysecrettoken123"
 
 """
 curl -X 'POST' \
-  'https://pb9z4lidq99o0j-8000.proxy.runpod.net/describe' \
+  'https://pb9z4lidq99o0j-8000.proxy.runpod.net/describe?temperature=1&beam_count=1&max_new_tokens=1000' \
   -H 'accept: application/json' \
   -H 'Content-Type: application/json' \
   -H 'Authorization: Bearer mysecrettoken123' \
@@ -63,10 +63,15 @@ async def describe(
     item: ImageDetailsRequest,
     temperature: Annotated[float, Path(title="Temperature", gt=0, le=2)] = 1,
     beam_count: Annotated[int, Path(title="Beam search numbers", ge=1, le=10)] = 1,
+    max_new_tokens: Annotated[
+        int, Path(title="New tokens count", ge=300, le=1000)
+    ] = 1000,
 ):
     response = requests.get(item.image_url, stream=True)
     with response_to_temp_file(response) as tmp_file:
-        llm_message = model.prompt_image(item.prompt, tmp_file, temperature, beam_count)
+        llm_message = model.prompt_image(
+            item.prompt, tmp_file, temperature, beam_count, max_new_tokens
+        )
         return {"answer": llm_message}
 
 
