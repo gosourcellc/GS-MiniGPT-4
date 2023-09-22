@@ -74,12 +74,12 @@ class MiniGPT:
         with Image.open(image_file) as im:
             _llm_message = self.chat.upload_img(im, chat_state, img_list)
 
-        self.chat.ask(prompt, chat_state)
+            self.chat.ask(prompt, chat_state)
 
-        return self.chat.answer(
-            conv=chat_state,
-            img_list=img_list,
-            max_new_tokens=3000,
-            num_beams=num_beams,
-            temperature=temperature,
-        )[0]
+            return self.chat.answer(
+                conv=chat_state,
+                img_list=img_list,
+                max_new_tokens=3000,
+                num_beams=num_beams,
+                temperature=temperature,
+            )[0]
