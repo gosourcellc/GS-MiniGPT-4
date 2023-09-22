@@ -72,7 +72,8 @@ class MiniGPT:
         chat_state = self.CONV_VISION.copy()
         img_list = []
         with Image.open(image_file) as im:
-            _llm_message = self.chat.upload_img(im, chat_state, img_list)
+            raw_image = im.convert("RGB")
+            _llm_message = self.chat.upload_img(raw_image, chat_state, img_list)
 
             self.chat.ask(prompt, chat_state)
 
