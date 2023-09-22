@@ -80,7 +80,7 @@ class MiniGPT:
         return self.chat.answer(
             conv=chat_state,
             img_list=img_list,
-            max_new_tokens=500,
+            max_new_tokens=600,
             num_beams=num_beams,
             temperature=temperature,
         )[0]
