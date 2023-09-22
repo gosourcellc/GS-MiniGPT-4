@@ -16,6 +16,18 @@ from fast_api.utils import response_to_temp_file
 
 SECRET_TOKEN = "mysecrettoken123"
 
+"""
+curl -X 'POST' \
+  'https://pb9z4lidq99o0j-8000.proxy.runpod.net/describe' \
+  -H 'accept: application/json' \
+  -H 'Content-Type: application/json' \
+  -H 'Authorization: Bearer mysecrettoken123' \
+  -d '{
+  "prompt": "describe the image as detailed as possible",
+  "image_url": "https://res.cloudinary.com/go-source/image/upload/v1692830079/erp_product/k2weg3ymjauhmlqifplk.jpg"
+}'
+"""
+
 
 def get_current_token(request: Request):
     authorization: Optional[str] = request.headers.get("Authorization")
