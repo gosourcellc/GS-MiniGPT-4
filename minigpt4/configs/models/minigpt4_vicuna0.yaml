@@ -15,7 +15,8 @@ model:
   # generation configs
   prompt: ""
 
-  llama_model: "vicuna/weight"
+  llama_model: "minigpt4-13b-ggml"
+#  llama_model: "vicuna/weight"
 
 preprocess:
     vis_processor:

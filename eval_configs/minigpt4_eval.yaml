@@ -5,7 +5,8 @@ model:
   end_sym: "###"
   low_resource: True
   prompt_template: '###Human: {} ###Assistant: '
-  ckpt: 'pretrained_minigpt4.pth'
+#  ckpt: 'pretrained_minigpt4.pth'
+  ckpt: 'minigpt4-13b-ggml/pretrained_minigpt4.pth'
 
 
 datasets:
